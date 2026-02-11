@@ -1,0 +1,16 @@
+# vi: ft=yaml
+---
+variant: fcos
+version: 1.6.0
+passwd:
+  users:
+    - name: core
+      ssh_authorized_keys_local:
+        - id_ed25519.pub
+storage:
+  files:
+    - path: /etc/hostname
+      mode: 0644
+      contents:
+        inline: |
+          tutorial
