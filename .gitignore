@@ -1,3 +1,4 @@
 *.ign
+*.qcow2
 configs/butane/files/id_ed25519.pub
 scripts/images
