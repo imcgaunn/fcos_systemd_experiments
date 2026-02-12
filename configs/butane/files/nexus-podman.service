@@ -12,7 +12,8 @@ ExecStartPre=/usr/bin/podman create --rm \
 	--name nexus \
   -p 8081:8081 \
   -p 5000:5000 \
-  --mount type=bind,src=/var/nexus-data,dst=/nexus-data \
+  --mount type=bind,src=/var/nexusdata,dst=/nexus-data \
+  --mount type=bind,src=/var/nexuswork,dst=/opt/sonatype/sonatype-work \
   docker.io/sonatype/nexus3:3.89.0-alpine
 # launch container and attach to its stdout
 ExecStart=/usr/bin/podman start --attach nexus
