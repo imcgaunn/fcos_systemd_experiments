@@ -1,9 +1,16 @@
+#!/bin/zsh
+set -o pipefail
+set -o errexit
+set -o nounset
+
+SCRIPT_DIR="${0:A:h}"
+IMAGES_DIR="${SCRIPT_DIR}/../images"
 STREAM="stable"
-# as an installed binary:
-#coreos-installer download -s $STREAM -p proxmoxve -f qcow2.xz --decompress -C /var/coreos
-# or as a container:
+ARCH="x86_64"
+
+mkdir -p "$IMAGES_DIR"
 podman run --pull=always \
-  --rm -v "./images:/data" \
+  --rm -v "$(realpath $IMAGES_DIR):/data" \
   -w /data \
   quay.io/coreos/coreos-installer:release \
-  download -s $STREAM -p proxmoxve -f qcow2.xz --decompress
+  download -s $STREAM -a $ARCH -p proxmoxve -f qcow2.xz --decompress
