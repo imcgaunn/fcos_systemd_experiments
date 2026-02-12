@@ -1,0 +1,11 @@
+[tasks.compile-butane]
+usage = """
+arg "<butane>" help="butane config to compile"
+"""
+description = "compile butane config to ignition"
+run = """
+#!/bin/bash
+pushd scripts
+./compile_butane.sh "${usage_butane?}"
+popd
+"""

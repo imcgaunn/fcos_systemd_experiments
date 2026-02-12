@@ -1,0 +1,23 @@
+[Unit]
+Description=Nexus Repository Manager
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=30
+ExecStartPre=-/bin/sh -c '/usr/bin/podman kill nexus 2>/dev/null || true'
+ExecStartPre=-/bin/sh -c '/usr/bin/podman rm nexus 2>/dev/null || true'
+# set up container for lunch
+ExecStartPre=/usr/bin/podman create --rm \
+	--name nexus \
+  -p 8081:8081 \
+  -p 5000:5000 \
+  --mount type=bind,src=/var/nexus-data,dst=/nexus-data \
+  sonatype/nexus3:3.89.0-alpine
+# launch container and attach to its stdout
+ExecStart=/usr/bin/podman start --attach nexus
+# nexus takes a while to stop so give it a bit
+ExecStop=/usr/bin/podman stop --time=120 nexus
+
+[Install]
+WantedBy=multi-user.target
