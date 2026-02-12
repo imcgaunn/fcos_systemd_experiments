@@ -29,9 +29,15 @@ storage:
       device: /dev/sdb
       wipe_table: true
       partitions:
-        - size_mib: 0
+        - label: nexuswork
+          size_mib: 10240 # 10 gigs for work directory
+        - size_mib: 0 # rest for nexusdata
           label: nexusdata
   filesystems:
+    - path: /var/nexuswork
+      device: /dev/disk/by-partlabel/nexuswork
+      format: ext4
+      with_mount_unit: true
     - path: /var/nexusdata
       device: /dev/disk/by-partlabel/nexusdata
       format: ext4
@@ -40,8 +46,12 @@ storage:
       device: /dev/disk/by-partlabel/var
       format: ext4
       with_mount_unit: true
+
 systemd:
   units:
     - name: nexus-podman.service
       enabled: true
       contents_local: nexus-podman.service
+    - name: nexus-permissions.service
+      enabled: true
+      contents_local: nexus-permissions.service

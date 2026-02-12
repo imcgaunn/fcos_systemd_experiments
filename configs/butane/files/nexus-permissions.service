@@ -1,0 +1,16 @@
+[Unit]
+Description=Set Nexus data directory permissions
+After=var-nexuswork.mount,var-nexusdata.mount
+Requires=var-nexuswork.mount,var-nexusdata.mount
+Before=nexus-podman.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/chown -R 200:200 /var/nexuswork
+ExecStart=/usr/bin/chown -R 200:200 /var/nexusdata
+ExecStart=/usr/bin/chmod -R 755 /var/nexusdata
+ExecStart=/usr/bin/chmod -R 755 /var/nexuswork
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

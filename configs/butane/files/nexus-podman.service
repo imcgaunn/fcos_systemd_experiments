@@ -1,6 +1,7 @@
 [Unit]
 Description=Nexus Repository Manager
-After=network-online.target
+After=network-online.target,var-nexuswork.mount,var-nexusdata.mount
+Requires=network-online.target,var-nexuswork.mount,var-nexusdata.mount
 Wants=network-online.target
 
 [Service]
