@@ -1,7 +1,7 @@
 [Unit]
 Description=Set Nexus data directory permissions
-After=var-nexuswork.mount,var-nexusdata.mount
-Requires=var-nexuswork.mount,var-nexusdata.mount
+After=var-nexuswork.mount var-nexusdata.mount
+Requires=var-nexuswork.mount var-nexusdata.mount
 Before=nexus-podman.service
 
 [Service]
