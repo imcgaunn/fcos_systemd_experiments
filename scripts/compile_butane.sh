@@ -18,11 +18,11 @@ fi
 # compile input butane config to `ignition` directory with
 # `.bu` extension replaced with `.ign`
 IGNITION_CONFIG="${BUTANE_CONFIG:r}.ign"
-IGNITION_CONFIG_PATH="$(realpath ${IGNITION_CONFIGS_DIR}/${IGNITION_CONFIG})"
+IGNITION_CONFIG_PATH="${IGNITION_CONFIGS_DIR}/${IGNITION_CONFIG}"
 podman run --interactive --rm --security-opt label=disable \
   --volume ${BUTANE_CONFIGS_DIR}:/butane \
   --volume ${BUTANE_FILES_DIR}:/files \
   --workdir /butane quay.io/coreos/butane:release \
   -d /files \
   --pretty --strict ${BUTANE_CONFIG} >${IGNITION_CONFIG_PATH}
-echo "compiled butane config to: ${IGNITION_CONFIG_PATH}"
+echo "compiled butane config to: $(realpath ${IGNITION_CONFIG_PATH})"

@@ -8,8 +8,8 @@ Before=nexus-podman.service
 Type=oneshot
 ExecStart=/usr/bin/chown -R 200:200 /var/nexuswork
 ExecStart=/usr/bin/chown -R 200:200 /var/nexusdata
-ExecStart=/usr/bin/chmod -R 755 /var/nexusdata
-ExecStart=/usr/bin/chmod -R 755 /var/nexuswork
+ExecStart=/usr/bin/chmod -R 750 /var/nexusdata
+ExecStart=/usr/bin/chmod -R 750 /var/nexuswork
 RemainAfterExit=yes
 
 [Install]
