@@ -49,6 +49,9 @@ storage:
 
 systemd:
   units:
+    - name: rpm-ostree-qemu-guest-agent.service
+      enabled: true
+      contents_local: rpm-ostree-qemu-guest-agent.service
     - name: nexus-podman.service
       enabled: true
       contents_local: nexus-podman.service

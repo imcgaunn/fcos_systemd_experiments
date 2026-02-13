@@ -1,0 +1,14 @@
+[Unit]
+Description=Install QEMU Guest Agent
+After=network-online.target
+Wants=network-online.target
+ConditionPathExists=!/usr/bin/qemu-ga
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+ExecStart=/usr/bin/rpm-ostree install --apply-live qemu-guest-agent
+ExecStartPost=/usr/bin/systemctl enable --now qemu-guest-agent
+
+[Install]
+WantedBy=multi-user.target
