@@ -1,0 +1,13 @@
+[Unit]
+Description=Install Harbor
+After=network-online.target
+Wants=network-online.target
+ConditionPathExists=!/opt/harbor/docker-compose.yml
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+ExecStart=/opt/harbor/install.sh
+
+[Install]
+WantedBy=multi-user.target

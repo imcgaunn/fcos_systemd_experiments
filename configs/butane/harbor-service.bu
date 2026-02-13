@@ -1,0 +1,61 @@
+# vi: ft=yaml
+# TODO: this needs to be updated.
+---
+variant: fcos
+version: 1.6.0
+passwd:
+  users:
+    - name: core
+      ssh_authorized_keys_local:
+        - id_ed25519.pub
+storage:
+  disks:
+    - # The block device the OS was booted from.
+      device: /dev/disk/by-id/coreos-boot-disk
+      # We do not want to wipe the partition table since this is the primary
+      # device.
+      wipe_table: false
+      partitions:
+        - number: 4
+          label: root
+          # Allocate at least 8 GiB to the rootfs. See NOTE above about this.
+          size_mib: 8192
+          resize: true
+        - size_mib: 0
+          # We assign a descriptive label to the partition. This is important
+          # for referring to it in a device-agnostic way in other parts of the
+          # configuration.
+          label: var
+    - # the data device
+      device: /dev/sdb
+      wipe_table: true
+      partitions:
+        - label: nexuswork
+          size_mib: 10240 # 10 gigs for work directory
+        - size_mib: 0 # rest for nexusdata
+          label: nexusdata
+  filesystems:
+    - path: /var/nexuswork
+      device: /dev/disk/by-partlabel/nexuswork
+      format: ext4
+      with_mount_unit: true
+    - path: /var/nexusdata
+      device: /dev/disk/by-partlabel/nexusdata
+      format: ext4
+      with_mount_unit: true
+    - path: /var
+      device: /dev/disk/by-partlabel/var
+      format: ext4
+      with_mount_unit: true
+
+systemd:
+  units:
+    - name: rpm-ostree-qemu-guest-agent.service
+      enabled: true
+      contents_local: rpm-ostree-qemu-guest-agent.service
+    - name: nexus-podman.service
+      enabled: true
+      contents_local: nexus-podman.service
+    - name: nexus-permissions.service
+      enabled: true
+      contents_local: nexus-permissions.service

@@ -1,0 +1,14 @@
+[Unit]
+Description=Install podman-compose
+After=network-online.target
+Wants=network-online.target
+Before=harbor-install.service
+ConditionPathExists=!/usr/bin/podman-compose
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+ExecStart=/usr/bin/rpm-ostree install --apply-live podman-compose
+
+[Install]
+WantedBy=multi-user.target
