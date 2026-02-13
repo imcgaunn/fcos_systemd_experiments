@@ -1,6 +1,6 @@
 [Unit]
 Description=Install podman-compose
-After=network-online.target
+After=network-online.target rpm-ostree-qemu-guest-agent.service
 Wants=network-online.target
 Before=harbor-install.service
 ConditionPathExists=!/usr/bin/podman-compose

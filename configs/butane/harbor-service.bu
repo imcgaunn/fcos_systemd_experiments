@@ -1,5 +1,4 @@
 # vi: ft=yaml
-# TODO: this needs to be updated.
 ---
 variant: fcos
 version: 1.6.0
@@ -30,21 +29,21 @@ storage:
       device: /dev/sdb
       wipe_table: true
       partitions:
-        - label: nexuswork
+        - label: harborwork
           size_mib: 10240 # 10 gigs for work directory
         - size_mib: 0 # rest for nexusdata
-          label: nexusdata
+          label: harbordata
   filesystems:
-    - path: /var/nexuswork
-      device: /dev/disk/by-partlabel/nexuswork
-      format: ext4
-      with_mount_unit: true
-    - path: /var/nexusdata
-      device: /dev/disk/by-partlabel/nexusdata
-      format: ext4
-      with_mount_unit: true
     - path: /var
       device: /dev/disk/by-partlabel/var
+      format: ext4
+      with_mount_unit: true
+    - path: /var/harbor/work
+      device: /dev/disk/by-partlabel/harborwork
+      format: ext4
+      with_mount_unit: true
+    - path: /var/harbor/data
+      device: /dev/disk/by-partlabel/harbordata
       format: ext4
       with_mount_unit: true
 
@@ -53,9 +52,6 @@ systemd:
     - name: rpm-ostree-qemu-guest-agent.service
       enabled: true
       contents_local: rpm-ostree-qemu-guest-agent.service
-    - name: nexus-podman.service
+    - name: rpm-ostree-podman-compose.service
       enabled: true
-      contents_local: nexus-podman.service
-    - name: nexus-permissions.service
-      enabled: true
-      contents_local: nexus-permissions.service
+      contents_local: rpm-ostree-podman-compose.service
