@@ -1,13 +1,15 @@
 [Unit]
-Description=Install Harbor
-After=network-online.target
-Wants=network-online.target
-ConditionPathExists=!/opt/harbor/docker-compose.yml
+Description=Install and start Harbor
+After=network-online.target docker.service
+Requires=docker.service
+ConditionPathExists=!/var/harbor/install/harbor/docker-compose.yml
 
 [Service]
 Type=oneshot
 RemainAfterExit=true
-ExecStart=/opt/harbor/install.sh
+Environment=HARBOR_VERSION=v2.14.2
+ExecStart=/var/harbor/install/setup-harbor.sh
+TimeoutStartSec=600
 
 [Install]
 WantedBy=multi-user.target

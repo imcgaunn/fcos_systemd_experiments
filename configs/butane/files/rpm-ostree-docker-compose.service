@@ -1,0 +1,16 @@
+[Unit]
+Description=Layer Docker packages via rpm-ostree
+After=network-online.target rpm-ostree-qemu-guest-agent.service
+Wants=network-online.target
+Before=harbor-install.service
+ConditionPathExists=!/var/lib/%N.stamp
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+ExecStart=/usr/bin/rpm-ostree install --apply-live --allow-inactive moby-engine docker-compose
+ExecStart=/bin/touch /var/lib/%N.stamp
+ExecStartPost=/usr/bin/systemctl enable --now docker.service
+
+[Install]
+WantedBy=multi-user.target

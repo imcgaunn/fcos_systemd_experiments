@@ -52,6 +52,6 @@ systemd:
     - name: rpm-ostree-qemu-guest-agent.service
       enabled: true
       contents_local: rpm-ostree-qemu-guest-agent.service
-    - name: rpm-ostree-podman-compose.service
+    - name: rpm-ostree-docker-compose.service
       enabled: true
-      contents_local: rpm-ostree-podman-compose.service
+      contents_local: rpm-ostree-docker-compose.service
