@@ -10,15 +10,15 @@ http:
   port: 80
 
 # https related config
-https:
-  # https port for harbor, default is 443
-  port: 443
-  # The path of cert and key files for nginx
-  certificate: /your/certificate/path
-  private_key: /your/private/key/path
-  # enable strong ssl ciphers (default: false)
-  # strong_ssl_ciphers: false
-
+#https:
+#  # https port for harbor, default is 443
+#  port: 443
+#  # The path of cert and key files for nginx
+#  certificate: /your/certificate/path
+#  private_key: /your/private/key/path
+#  # enable strong ssl ciphers (default: false)
+#  # strong_ssl_ciphers: false
+#
 # # Harbor will set ipv4 enabled only by default if this block is not configured
 # # Otherwise, please uncomment this block to configure your own ip_family stacks
 # ip_family:

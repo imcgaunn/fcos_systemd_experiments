@@ -9,3 +9,15 @@ pushd scripts
 ./compile_butane.sh "${usage_butane?}"
 popd
 """
+
+[tasks.copy-to-pve]
+description = """
+copy files to pve host so they can be used
+"""
+run = """
+#!/bin/bash
+set -euo pipefail
+rsync -avz ./configs/ignition/ root@192.168.0.87:/var/coreos/snippets/
+rsync -avz ./scripts/bootstrap_proxmox_vm.sh root@192.168.0.87:scripts/
+rsync -avz ./configs/proxmox_vars/ root@192.168.0.87:scripts/vars/
+"""

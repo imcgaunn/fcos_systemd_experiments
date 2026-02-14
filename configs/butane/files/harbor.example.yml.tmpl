@@ -1,0 +1,57 @@
+hostname: harbor.homelab.mcgaunn.com
+
+# HTTPS configuration
+# https:
+#     port: 443
+#     certificate: /var/harbor/work/certs/server.crt
+#     private_key: /var/harbor/work/certs/server.key
+
+http:
+  port: 80
+
+harbor_admin_password: Harbor12345
+
+database:
+    password: root123
+    max_idle_conns: 100
+    max_open_conns: 900
+    conn_max_lifetime: 5m
+    conn_max_idle_time: 0
+
+data_volume: /var/harbor/data
+
+trivy:
+    ignore_unfixed: false
+    skip_update: false
+    offline_scan: false
+    security_check: vuln
+    insecure: false
+
+jobservice:
+    max_job_workers: 10
+    job_loggers:
+        - STD_OUTPUT
+        - FILE
+    logger_sweeper_duration: 1
+
+notification:
+    webhook_job_max_retry: 3
+    webhook_job_http_client_timeout: 3
+
+log:
+    level: info
+    local:
+        rotate_count: 50
+        rotate_size: 200M
+        location: /var/log/harbor
+
+_version: 2.14.0
+
+proxy:
+    http_proxy:
+    https_proxy:
+    no_proxy:
+    components:
+        - core
+        - jobservice
+        - trivy

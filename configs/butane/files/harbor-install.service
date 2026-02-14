@@ -8,7 +8,7 @@ ConditionPathExists=!/var/harbor/install/harbor/docker-compose.yml
 Type=oneshot
 RemainAfterExit=true
 Environment=HARBOR_VERSION=v2.14.2
-ExecStart=/var/harbor/install/setup-harbor.sh
+ExecStart=/usr/bin/bash /var/harbor/install/setup-harbor.sh
 TimeoutStartSec=600
 
 [Install]

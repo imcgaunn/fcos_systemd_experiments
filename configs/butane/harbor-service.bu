@@ -46,7 +46,16 @@ storage:
       device: /dev/disk/by-partlabel/harbordata
       format: ext4
       with_mount_unit: true
-
+  directories:
+    - path: /var/harbor/install
+  files:
+    - path: /var/harbor/install/harbor.yml.tmpl
+      contents:
+        local: harbor.example.yml.tmpl
+    - path: /var/harbor/install/setup-harbor.sh
+      contents:
+        local: setup-harbor.sh
+      mode: 0755
 systemd:
   units:
     - name: rpm-ostree-qemu-guest-agent.service
@@ -55,3 +64,9 @@ systemd:
     - name: rpm-ostree-docker-compose.service
       enabled: true
       contents_local: rpm-ostree-docker-compose.service
+    - name: harbor-install.service
+      enabled: true
+      contents_local: harbor-install.service
+    - name: harbor.service
+      enabled: true
+      contents_local: harbor.service

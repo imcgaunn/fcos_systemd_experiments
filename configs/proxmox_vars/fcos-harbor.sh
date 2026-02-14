@@ -1,0 +1,11 @@
+VM_ID=151
+NAME=fcos-harbor
+QCOW=fedora-coreos-43.20260119.3.1-proxmoxve.x86_64.qcow2
+IGN=harbor-service.ign
+ROOT_STORAGE=coreos
+DATA_STORAGE=local-lvm
+DATA_VOLUME=vm-${VM_ID}-${NAME}-data-0
+CPUS=2
+MEMORY=4096
+ROOT_DISK_SIZE=10G
+DATA_DISK_SIZE=40G
